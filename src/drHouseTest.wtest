@@ -1,0 +1,38 @@
+import drHouse.*
+
+describe "tests de house" {
+
+const malariaAguda = new EnfermedadInfecciosa(celulas = 800)
+const malariaSuave = new EnfermedadInfecciosa(celulas = 500)
+const otitis = new EnfermedadInfecciosa(celulas = 100)
+const lupus = new EnfermedadAutoinmune(celulas = 10000)
+const frank = new Persona(celulas=3500000)
+const logan = new Persona(celulas=3000000)
+
+
+test "Frank contrae malaria" {
+    //frank empieza con Frank, con 36 y 3.500.000 células.
+    frank.contraer(malariaAguda)
+    frank.pasarUnDia()
+	assert.equals(36.8,frank.temperatura())
+}
+
+test "Frank contrae malaria y otitis" {
+    //frank empieza con Frank, con 36 y 3.500.000 células.
+    frank.contraer(malariaAguda)
+    frank.contraer(otitis)
+    frank.pasarUnDia()
+	assert.equals(36.9,frank.temperatura())
+}
+
+test "Logan contrae malaria y otitis u otra malaria más" {
+    //frank empieza con Frank, con 36 y 3.500.000 células.
+    logan.contraer(lupus)
+    logan.contraer(otitis)
+    logan.contraer(malariaSuave)
+    logan.pasarUnDia()
+	assert.equals(36.6,logan.temperatura())
+	assert.equals(3000000 - 10000,logan.celulas())
+}
+
+}
